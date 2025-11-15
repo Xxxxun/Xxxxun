@@ -5,6 +5,18 @@
   font-size: 3rem;
 }
 
+.post-header {
+  font-family: "Comic Relief", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.post-content {
+  font-family: "Comic Relief", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .post-meta {
   font-family: "Comic Relief", system-ui;
   font-weight: 400;
