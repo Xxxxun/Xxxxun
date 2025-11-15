@@ -46,11 +46,11 @@ intro {
   font-style: normal;
 }
 
-h1, h2, h3, h4, h5, h6 {
+/* h1, h2, h3, h4, h5, h6 {
   font-family: "Comic Relief", system-ui;
   font-weight: 700;
   font-style: normal;
-}
+} */
 
 hr {
   margin-top: 30px;
