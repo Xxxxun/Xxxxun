@@ -1,3 +1,9 @@
+intro {
+  font-family: "Ma Shan Zheng", cursive;
+  font-weight: 1000;
+  font-style: normal;
+}
+
 .post-meta {
   font-family: "Comic Relief", system-ui;
   font-weight: 400;
@@ -16,7 +22,7 @@
   font-style: normal;
 }
 
-.footer-col {
+.footer-col-3 {
   font-family: "Ma Shan Zheng", cursive;
   font-weight: 400;
   font-style: normal;
