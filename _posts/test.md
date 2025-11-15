@@ -1,1 +1,126 @@
-## test
+## SE3Transformer Debug 
+
+Rosseta2NA 使用 SE3Transformer 进行模型训练，但提供的版本存在许多问题，许多依赖在三年后停止更新或运营。特以此篇博客记录。
+---
+
+#### se3transformer debug
+
+#### 重新安装更新se3transformer github库
+```powershell
+git clone --depth 1 --filter=blob:none --no-checkout https://github.com/NVIDIA/DeepLearningExamples.git
+
+cd DeepLearningExamples
+```
+#### 告诉 Git 你只想要那一个特定的子目录：
+```powershell
+git sparse-checkout set DGLPyTorch/DrugDiscovery/SE3Transformer
+
+git checkout main
+```
+#### 安装依赖
+```powershell
+cd SE3Transformer
+pip install --no-cache-dir -r requirements.txt
+python setup.py install
+```
+#### 找到合适的torch==2.1.0
+
+#### 安装对应的cuda-toolkit
+#### 常规的conda安装会出现依赖版本不一致的情况
+```powershell
+conda install nvidia/label/cuda-12.1.1::cuda-toolkit
+```
+#### 必须指定chanel
+```powershell
+conda install nvidia/label/cuda-12.1.1::cuda-toolkit -c nvidia/label/cuda-12.1.1
+```
+
+#### 安装合适版本的编译器
+#### btw，apex版本过于老旧
+```powershell
+conda install conda-forge/label/gcc7::gxx_linux-64
+```
+
+#### 安装apex 
+```powershell
+APEX_CPP_EXT=1 APEX_CUDA_EXT=1 pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --config-settings "--build-option=--cpp_ext" --config-settings "--build-option=--cuda_ext" .
+```
+
+#### 意外发现conda环境编译工具链配置有问题
+Error: /workspace/jyjiang/.conda/envs/se3tf/bin/../lib/gcc/x86_64-conda_cos6-linux-gnu/7.3.0/../../../../x86_64-conda_cos6-linux-gnu/bin/ld: cannot find -lcudart
+/workspace/jyjiang/.conda/envs/se3tf/bin/../lib/gcc/x86_64-conda_cos6-linux-gnu/7.3.0/../../../../x86_64-conda_cos6-linux-gnu/bin/ld -lcudart --verbose # 检查，发现conda环境编译工具链配置有问题
+
+#SEARCH_DIR("=/opt/conda/conda-bld/compilers_linux-64_1534500488818/work/gcc_built/x86_64-conda_cos6-linux-gnu/lib64"); SEARCH_DIR("=/usr/local/lib64"); SEARCH_DIR("=/lib64"); SEARCH_DIR("=/usr/lib64"); SEARCH_DIR("=/opt/conda/conda-bld/compilers_linux-64_1534500488818/work/gcc_built/x86_64-conda_cos6-linux-gnu/lib"); SEARCH_DIR("=/usr/local/lib"); SEARCH_DIR("=/lib"); SEARCH_DIR("=/usr/lib");
+#### 链接器 ld 查找库（如 libcudart.so）的默认路径列表完全是错的。它在查找系统路径（如 /usr/lib）和一些 Conda 构建时的硬编码路径（/opt/conda/conda-bld/...）。
+#### 这个列表完全没有包含你的 se3tf 环境的库路径： /workspace/jyjiang/.conda/envs/se3tf/lib
+
+#### 为conda环境永久设置 LDFLAGS 和 CPPFLAGS
+```powershell
+conda env config vars set LDFLAGS="-L${CONDA_PREFIX}/lib"
+conda env config vars set CPPFLAGS="-I${CONDA_PREFIX}/include"
+```
+
+#### 测试，必须：重新激活环境 Conda 会提示你，这些更改只在下次激活时生效。
+```powershell
+conda deactivate
+conda activate se3tf
+echo $LDFLAGS
+```
+#### 应该输出：-L/workspace/jyjiang/.conda/envs/se3tf/lib
+
+#### 缺失tqdm
+```powershell
+pip install tqdm
+```
+
+#### 缺失dgl，dgl已停止更新，寻找合适匹配的版本
+```powershell
+conda install -c dglteam/label/th21_cu121 dgl
+```
+
+#### numpy版本不一致导致数据库缺失
+#### 将numpy版本回退
+#### conda uninstall --force numpy-base
+#### pip install --force-reinstall "numpy<2.0"
+```powershell
+pip install "numpy<2.0"
+```
+
+#### 回退protobuf版本
+```powershell
+pip uninstall protobuf
+pip install protobuf==3.19.0
+```
+
+#### 回退torchdata版本
+#### ModuleNotFoundError: No module named ‘torch.utils._import_utils’
+#### torch==2.1.0 & torchdata==0.7.0 works
+```powershell
+pip install torchdata==0.7.0
+```
+
+#### 缺失pydantic
+```powershell
+pip install pydantic
+```
+
+#### 缺失pandas
+#### dgl 2.4.0+cu121 requires pandas, which is not installed.
+#### dgl 2.4.0+cu121 requires pyyaml, which is not installed.
+```powershell
+pip install pandas
+pip install pyyaml
+```
+
+#### ModuleNotFoundError: No module named 'requests'
+```powershell
+pip install requests
+```
+
+#### run 
+```powershell
+cd scripts
+nohup env CUDA_VISIBLE_DEVICES=1 bash train.sh > train.log 2>&1 &
+```
+------------------------
+2025.11.15 17:30
