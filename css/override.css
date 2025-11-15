@@ -1,3 +1,21 @@
+.post-meta {
+  font-family: "Comic Relief", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.page-link {
+  font-family: "Comic Relief", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.footer-col {
+  font-family: "Ma Shan Zheng", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .site-title {
   font-family: "Comic Relief", system-ui;
   font-weight: 400;
