@@ -1,1 +1,1 @@
-<p class="ma-shan-zheng-regular">匆匆</p>
+<p class="intro">匆匆</p>
