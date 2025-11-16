@@ -1,3 +1,25 @@
+body {
+    /* --- 1. 设置背景图片 --- */
+    /* 路径: ../images/ 的意思是 "从 css 文件夹往上一层, 再进入 images 文件夹" */
+    /* * !! 把 'background.jpg' 换成你上传的【准确文件名】 !!
+     */
+    background-image: url('../images/background.jpg');
+
+    /* --- 2. 调整图片显示方式 (推荐) --- */
+    
+    /* 让图片铺满整个屏幕，不变形 */
+    background-size: cover;
+    
+    /* 防止图片平铺重复 */
+    background-repeat: no-repeat;
+    
+    /* 居中显示图片 */
+    background-position: center center;
+    
+    /* (可选) 让背景图固定不动，页面内容滚动 */
+    background-attachment: fixed;
+}
+
 .intro {
   font-family: "Ma Shan Zheng", cursive;
   font-weight: 400;
