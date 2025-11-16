@@ -4,7 +4,7 @@ body {
     /* --- 2. 调整图片显示方式 (推荐) --- */
     
     /* 让图片铺满整个屏幕，不变形 */
-    background-size: auto;
+    background-size: cover;
     
     /* 防止图片平铺重复 */
     background-repeat: no-repeat;
