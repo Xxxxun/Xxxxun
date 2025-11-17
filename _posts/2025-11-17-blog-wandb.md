@@ -1,8 +1,4 @@
----
-layout: post
-title: 'Weight & Bias 网站使用心得'
----
-## Weight &#38; Bias 网站使用心得
+## Weight and Bias website tips
 
 简述wandb使用体验
 
