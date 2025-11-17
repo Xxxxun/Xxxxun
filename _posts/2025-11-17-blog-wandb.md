@@ -1,4 +1,4 @@
-## "Weight & Bias 网站使用心得"
+## Weight and Bias 网站使用心得
 
 简述wandb使用体验
 
