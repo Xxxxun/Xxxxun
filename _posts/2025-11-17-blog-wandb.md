@@ -33,3 +33,7 @@ wandb.login(key="")
         wandb.finish() 
         print("WandB run finished.")
 ```
+```powershell
+# 在终端运行，清理所有未完成的同步
+wandb sync --clean
+```
