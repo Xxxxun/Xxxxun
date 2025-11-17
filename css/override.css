@@ -1,23 +1,35 @@
 body {
-    background: 
-        /* 1. 蒙层 */
-        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-        /* 2. 你的图片 */
-        url('../images/yang.jpg');
+    min-height: 100vh; /* 确保 body 至少和视口一样高 */
+    position: relative; /* 允许内部的背景层进行绝对定位 */
+    z-index: 1; /* 确保内容在背景之上 */
+    
+    /* 你的文字颜色设置 (根据背景图调整) */
+    /* color: #FFFFFF; /* 如果背景图会变暗，文字用白色 */ */
+    /* color: #333333; */ /* 如果背景图会变亮，文字用深灰色 */
 
-    /* --- 2. 调整图片显示方式 (推荐) --- */
+    /* 确保内容不会被背景层挡住 */
+    isolation: isolate; 
+}
+
+#bg-overlay::before {
+    content: ''; /* 伪元素必须有 content 属性 */
+    position: fixed; /* 固定在屏幕上，不随滚动 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     
-    /* 让图片铺满整个屏幕，不变形 */
+    /* [!! 关键部分 !!] 设置背景图片和透明度 */
+    background-image: url('../images/yang.jpg'); /* <<-- 确保路径和文件名正确！ */
     background-size: cover;
-    
-    /* 防止图片平铺重复 */
     background-repeat: no-repeat;
-    
-    /* 居中显示图片 */
     background-position: center center;
+    background-attachment: fixed; /* 背景固定 */
     
-    /* (可选) 让背景图固定不动，页面内容滚动 */
-    background-attachment: fixed;
+    /* 调整背景图片本身的透明度！ */
+    opacity: 0.5; /* <<-- 你可以在这里调整透明度，0.0 是完全透明，1.0 是完全不透明 */
+    
+    z-index: -1; /* 让这个背景层位于内容之下 */
 }
 
 .intro {
