@@ -3,7 +3,7 @@ body {
         /* 1. 蒙层 */
         linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         /* 2. 你的图片 */
-        url('../images/background.jpg');
+        url('../images/yang.jpg');
 
     /* --- 2. 调整图片显示方式 (推荐) --- */
     
