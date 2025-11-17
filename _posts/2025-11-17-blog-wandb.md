@@ -9,7 +9,7 @@ wandb中每个run的artifacts保存后十分难以管理，强烈建议不要保
 
 #### wandb（心跳机制）
 需要通知wandb关闭
-````
+```powershell
 wandb.login(key="")
     try:
         wandb.init(
@@ -32,4 +32,4 @@ wandb.login(key="")
     finally:
         wandb.finish() 
         print("WandB run finished.")
-````
+```
