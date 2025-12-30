@@ -1,4 +1,14 @@
+## How to process PDB datasets to do clustering
+
+简述用 mmseqs + usalign 聚类pdb数据
+
+---
+
+#### pdb2fasta
+将pdb数据提取至统一的fasta文件，complex数据统一选择蛋白
+```powershell
 pdb2fasta.py
+```
 
 mmseqs createdb all_sequences.fasta mmseqs_DB
 
